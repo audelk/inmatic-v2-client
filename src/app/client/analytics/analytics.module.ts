@@ -6,6 +6,11 @@ import {
 } from '@angular/material';
 import { NgxDnDModule } from '@swimlane/ngx-dnd';
 
+import { ChartModule,HIGHCHARTS_MODULES  } from 'angular-highcharts';
+import * as highstock from 'highcharts/modules/stock.src';
+import * as more from 'highcharts/highcharts-more.src';
+import * as exporting from 'highcharts/modules/exporting.src';
+
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseConfirmDialogModule, FuseMaterialColorPickerModule } from '@fuse/components';
 import { AnalyticsComponent } from 'app/client/analytics/analytics.component';
@@ -50,6 +55,8 @@ const routes: Routes = [
         MatTooltipModule,
         ChartsModule,
         NgxChartsModule,
+        ChartModule,       
+
 
         NgxDnDModule,
 
@@ -58,6 +65,10 @@ const routes: Routes = [
         FuseMaterialColorPickerModule
     ],
     providers      : [
+        { 
+            provide: HIGHCHARTS_MODULES, 
+            useFactory: () => [ highstock,more,exporting ] 
+        },        
         AnalyticsService
     ],   
 })
