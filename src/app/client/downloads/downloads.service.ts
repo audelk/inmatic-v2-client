@@ -68,17 +68,17 @@ export class DownloadsService {
         let params = new HttpParams();
         params = params.set('connector_campaign_id', connector_campaign_id); 
         return new Promise((resolve, reject) => {
-            this._httpClient.get(Constants.API_URL + '/api/getContactsJSONByCampaignId', { params:params,headers: this.jwt()})
-                .subscribe((response: any) => {
-                    resolve(response['json']);
-                },
-                error => {
-                    if (error.status == 301) {
-                        this._auth.logout();
-                    }
-                });
-        }
-    ); 
+                this._httpClient.get(Constants.API_URL + '/api/getContactsJSONByCampaignId', { params:params,headers: this.jwt()})
+                    .subscribe((response: any) => {
+                        resolve(response['json']);
+                    },
+                    error => {
+                        if (error.status == 301) {
+                            this._auth.logout();
+                        }
+                    });
+            }
+        ); 
     }
       
     
