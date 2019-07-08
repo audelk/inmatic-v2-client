@@ -74,7 +74,7 @@ export class ApiAuthService {
     }
     public getLogoUrl(){
         var logos = {
-            "sparktalk.io":"http://app.sparktalk.io/assets/images/logos/fuse.png",
+            "sparktalk.io":"https://app.sparktalk.io/assets/images/logos/fuse.png",
             "techleemessenger.com": "https://techleemessenger.com/assets/images/logo-full.png",
             "techleeapp.com": "https://techleeapp.com/assets/images/logo-full.png"
         };
