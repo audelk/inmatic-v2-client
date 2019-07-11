@@ -11,6 +11,8 @@ import { takeUntil } from 'rxjs/operators';
 import { environment } from 'environments/environment';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ContactDialogComponent } from 'app/client/contacts/contact-detail/email-dialog/contact-dialog.component';
+import {FuseConfirmDialogComponent} from '@fuse/components/confirm-dialog/confirm-dialog.component';
+import { ApiTokenService } from 'app/services/token.service';
 
 export interface DialogData {
     animal: string;
@@ -34,6 +36,7 @@ export class ContactDetailComponent implements OnInit, OnDestroy
     dataSource: FilesDataSource | null;
     checkboxes: {};
     isLoading:any;
+    confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;    
     // Private
     private _unsubscribeAll: Subject<any>;
 
@@ -49,7 +52,8 @@ export class ContactDetailComponent implements OnInit, OnDestroy
         private _activatedRoute : ActivatedRoute,
         private _router:Router,
         private _matSnackBar: MatSnackBar,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private _token: ApiTokenService
     )
     {
         // Set the private defaults
@@ -94,7 +98,8 @@ export class ContactDetailComponent implements OnInit, OnDestroy
             });
         });
     }
-    updateEnrichedData():void {
+    updateEnrichedData():void {       
+            
         var data = this.inConnection;        
         this._contactsService.updateEnrichedData(data).then( res=> {
             this._matSnackBar.open('Enriched Data successfully updated!', 'OK', {
@@ -117,28 +122,46 @@ export class ContactDetailComponent implements OnInit, OnDestroy
                 duration        : 3500
             });
             return;
+        }      
+        if(this._token.getEnrichCredits() < 1){
+            this._matSnackBar.open("You have not enough credits!", 'OK', {
+                verticalPosition: 'top',
+                duration        : 3500
+            });
+            return;
         }
-        var data = this.inConnection;
-        this.isLoading = true;
-        this._contactsService.enrichContact(data).then( res=> {
-            var message = 'Enrich Contact Successfully!';
-            if(res.message){
-                message = res.message;
-            }
-            this._matSnackBar.open(message, 'OK', {
-                verticalPosition: 'top',
-                duration        : 3500
-            });
-            this.inConnection = res.inConnection;
-            this.isLoading = false;
-
-        }).catch( err => {
-            this._matSnackBar.open('Enrich Contact failed!', 'OK', {
-                verticalPosition: 'top',
-                duration        : 3500
-            });
-            this.isLoading = false;
+        this.confirmDialogRef = this.dialog.open(FuseConfirmDialogComponent, {
+            disableClose: false
         });
+        this.confirmDialogRef.componentInstance.confirmMessage = 'You have ' + this._token.getEnrichCredits() + ' credits remaining.  ' + 'Are you sure you would like to proceed?';
+        this.confirmDialogRef.afterClosed().subscribe(result => {
+            if ( result ) {
+                var data = this.inConnection;
+                this.isLoading = true;
+                this._contactsService.enrichContact(data).then( res=> {
+                    var message = 'Enrich Contact Successfully!';
+                    if(res.message){
+                        message = res.message;
+                    }
+                    this._matSnackBar.open(message, 'OK', {
+                        verticalPosition: 'top',
+                        duration        : 3500
+                    });
+                    this.inConnection = res.inConnection;
+                    this.isLoading = false;
+                    this._token.setEnrichCredits(res.validEnrichCredits);
+
+                }).catch( err => {
+                    this._matSnackBar.open('Enrich Contact failed!', 'OK', {
+                        verticalPosition: 'top',
+                        duration        : 3500
+                    });
+                    this.isLoading = false;
+                });
+            }
+            this.confirmDialogRef = null;
+        });
+        
     }
     remiderChange(event: any) {
         this._contactsService.updateReminder(this.inConnection).then( res=> {

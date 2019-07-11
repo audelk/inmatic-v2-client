@@ -24,7 +24,7 @@ import { ChatUserSidenavComponent } from 'app/client/contacts/contact-detail/cha
 import { ChatLeftSidenavComponent } from 'app/client/contacts/contact-detail/chat/sidenavs/left/left.component';
 import { ChatRightSidenavComponent } from 'app/client/contacts/contact-detail/chat/sidenavs/right/right.component';
 import { ChatContactSidenavComponent } from 'app/client/contacts/contact-detail/chat/sidenavs/right/contact/contact.component';
-
+import { ApiTokenService } from 'app/services/token.service';
 const routes: Routes = [
     {
         path     : '',
@@ -88,7 +88,8 @@ const routes: Routes = [
     ],
     providers      : [
         ContactsService,
-        ChatService
+        ChatService,
+        ApiTokenService
     ],
     entryComponents: [ 
         ContactDialogComponent       

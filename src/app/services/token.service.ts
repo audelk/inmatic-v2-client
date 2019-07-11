@@ -14,6 +14,7 @@ export class ApiTokenService {
     public handle(data) {
         this.set(data['token']);
         this.setUser(data['user']);
+        this.setEnrichCredits(data['validEnrichCredits']);
     }
 
     private set(token): void{
@@ -27,6 +28,18 @@ export class ApiTokenService {
     public setUser(user): void{
         localStorage.setItem('user', JSON.stringify(user));
         this.syncUserSubject.next(user);
+    }
+
+    public setEnrichCredits(credits){
+        localStorage.setItem("validEnrichCredits",credits);
+    }
+    public getEnrichCredits(): any{
+        if (localStorage.getItem('validEnrichCredits')) {
+            return Number(localStorage.getItem('validEnrichCredits'));
+        } else {
+            return 0;
+        }
+
     }
 
     public getUser(): any{
