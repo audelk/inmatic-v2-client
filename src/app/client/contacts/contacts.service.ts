@@ -182,6 +182,46 @@ export class ContactsService implements Resolve<any>
                 );
         });
     }
+    updateEnrichedData(inConnection): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient
+                .post(Constants.API_URL + '/api/updateEnrichedData', inConnection, {headers: this.jwt()})
+                .subscribe(
+                    response => {
+                        resolve(response);
+                    },
+                    error => {
+                        if (error.status == 301) {
+                            this._auth.logout();
+                        }
+                        this._matSnackBar.open('Error, ' + error.error['message'], 'OK', {
+                            verticalPosition: 'top',
+                            duration        : 3500
+                        });
+                    }
+                );
+        });
+    }
+    enrichContact(inConnection): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._httpClient
+                .post(Constants.API_URL + '/api/enrichContact', inConnection, {headers: this.jwt()})
+                .subscribe(
+                    response => {
+                        resolve(response);
+                    },
+                    error => {
+                        if (error.status == 301) {
+                            this._auth.logout();
+                        }
+                        this._matSnackBar.open('Error, ' + error.error['message'], 'OK', {
+                            verticalPosition: 'top',
+                            duration        : 3500
+                        });
+                    }
+                );
+        });
+    }
     updateReminder(inConnection): Promise<any>{
         return new Promise((resolve, reject) => {
             this._httpClient

@@ -33,6 +33,7 @@ export class ContactDetailComponent implements OnInit, OnDestroy
     contactId:any;
     dataSource: FilesDataSource | null;
     checkboxes: {};
+    isLoading:any;
     // Private
     private _unsubscribeAll: Subject<any>;
 
@@ -55,6 +56,7 @@ export class ContactDetailComponent implements OnInit, OnDestroy
         this._unsubscribeAll = new Subject();
         this.contact = new Contact('');
         this.inConnection = new InConnection('');
+        this.isLoading = false;
         this._activatedRoute.params.subscribe(params => {
             if (params['ID2']) {
                 this.contactId = params['ID2'];               
@@ -90,6 +92,52 @@ export class ContactDetailComponent implements OnInit, OnDestroy
                 verticalPosition: 'top',
                 duration        : 3500
             });
+        });
+    }
+    updateEnrichedData():void {
+        var data = this.inConnection;        
+        this._contactsService.updateEnrichedData(data).then( res=> {
+            this._matSnackBar.open('Enriched Data successfully updated!', 'OK', {
+                verticalPosition: 'top',
+                duration        : 3500
+            });
+            this._router.navigate(['/client/contacts/']);
+
+        }).catch( err => {
+            this._matSnackBar.open('Enriched Data update failed!', 'OK', {
+                verticalPosition: 'top',
+                duration        : 3500
+            });
+        });
+    }
+    enrichContact():void {
+        if(!this.contact.email){
+            this._matSnackBar.open("Email doesn't exist!", 'OK', {
+                verticalPosition: 'top',
+                duration        : 3500
+            });
+            return;
+        }
+        var data = this.inConnection;
+        this.isLoading = true;
+        this._contactsService.enrichContact(data).then( res=> {
+            var message = 'Enrich Contact Successfully!';
+            if(res.message){
+                message = res.message;
+            }
+            this._matSnackBar.open(message, 'OK', {
+                verticalPosition: 'top',
+                duration        : 3500
+            });
+            this.inConnection = res.inConnection;
+            this.isLoading = false;
+
+        }).catch( err => {
+            this._matSnackBar.open('Enrich Contact failed!', 'OK', {
+                verticalPosition: 'top',
+                duration        : 3500
+            });
+            this.isLoading = false;
         });
     }
     remiderChange(event: any) {

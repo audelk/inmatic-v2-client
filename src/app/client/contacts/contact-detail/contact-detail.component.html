@@ -79,8 +79,8 @@
                         </div>
                         <div fxLayout="row" fxLayoutAlign="space-around center" fxFlex="1 0 auto">
                             <div fxLayout="column" fxLayoutAlign="space-around center">
-                                <p class = "" >URL Sent</p>
-                                <button mat-fab>
+                                <p class = "" >Enrich Contact</p>
+                                <button mat-fab [disabled] = "inConnection.enriched == '1' || isLoading" (click) = "enrichContact()">
                                     <mat-icon aria-label="Example icon-button with a heart icon">check</mat-icon>
                                 </button>
                             </div>                  
@@ -88,22 +88,28 @@
                     </div>
                 </div>
             </div>               
-        </div>
+        </div>        
         <div fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row" class = "mt-20">
-                <div fxLayout="row" fxLayoutAlign="center stretch" fxFlex="1 0 auto">                   
-                    <div class = "mat-card" fxFlex = "100">
+                <div fxLayout="row" fxLayoutAlign="center stretch" fxFlex="1 0 auto">
+                    <div class = "mat-card " fxFlex = "50">
+                        <div fxLayout="row" fxLayoutAlign="start center" class = "m-20" fxFlex="1 0 auto">
+                            <mat-form-field appearance="outline" fxFlex="100">
+                                <mat-label>Enriched Data</mat-label>
+                                <textarea matInput  required [(ngModel)] = "inConnection.enrich_data" rows = "10" class="notes" [disabled] = "inConnection.enriched == '0'"></textarea>                               
+                            </mat-form-field>
+                            <button mat-raised-button class = "mr-20 ml-20" (click) ="updateEnrichedData()" [disabled] = "inConnection.enriched == '0'">Save</button>      
+                        </div>
+                    </div>                   
+                    <div class = "mat-card  ml-20 p-20" fxFlex = "50">
                         <div fxLayout="row" fxLayoutAlign="start center" class = "m-20" fxFlex="1 0 auto">
                             <mat-form-field appearance="outline" fxFlex="100">
                                 <mat-label>Notes</mat-label>
                                 <textarea matInput  required [(ngModel)] = "inConnection.notes" rows = "10" class="notes"></textarea>                               
                             </mat-form-field>
                             <button mat-raised-button class = "mr-20 ml-20" (click) ="updateInConnectionNotes()">Save</button>      
-                        </div>
-                        <!-- <div fxLayout="row" class = "" fxLayoutAlign="center center" fxFlex="1 0 auto">
-                                             
-                        </div>         -->
-                    </div>                   
-                </div>               
+                        </div>                      
+                    </div>                    
+                </div>
             </div>
         <div fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row" class = "mat-card mt-40">
             <chat></chat>

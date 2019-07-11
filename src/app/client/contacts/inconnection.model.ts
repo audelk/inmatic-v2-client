@@ -15,6 +15,8 @@ export class InConnection
     notes:string;
     reminder:string;
     label:string; 
+    enriched:string;
+    enrich_data:string;
     
 
     /**
@@ -37,7 +39,9 @@ export class InConnection
             this.publicIdentifier = InConnection.publicIdentifier || '';
             this.notes = InConnection.notes || '';
             this.reminder = InConnection.reminder || '';
-            this.label = InConnection.label || '';            
+            this.label = InConnection.label || '';
+            this.enriched = InConnection.enriched || '';
+            this.enrich_data = InConnection.enrich_data || '';
             
         }
     }
