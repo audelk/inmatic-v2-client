@@ -56,7 +56,12 @@
                     <div class = "h3">Set Reminder</div>
                     <div fxLayout="row" fxLayoutAlign="space-around center" fxFlex="1 0 auto">
                         <p class = ""> Follow up in</p>
-                        <mat-slider id="change"
+                        <mat-form-field style = "width: 50%;">          
+                            <mat-select [(ngModel)]="inConnection.reminder"  (selectionChange)="remiderChange($event)" >
+                                <mat-option *ngFor="let range of ranges" [value]="range">{{range}}</mat-option>                    
+                            </mat-select>    
+                        </mat-form-field>
+                        <!-- <mat-slider id="change"
                             class=""
                             [max]="100"
                             [min]="1"
@@ -65,7 +70,7 @@
                             [vertical]="true"
                             [(ngModel)] = 'inConnection.reminder'
                             (change)="remiderChange($event)">
-                        </mat-slider>
+                        </mat-slider> -->
                         <p class = "">days</p>                       
                     </div>                        
                     <div fxLayout="row" fxLayoutAlign="space-around start" fxFlex="1 0 auto" class = "mt-20">
