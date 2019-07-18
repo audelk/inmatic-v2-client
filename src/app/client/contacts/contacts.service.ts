@@ -69,7 +69,7 @@ export class ContactsService implements Resolve<any>
         this.pageNo = 0;
         this.numPerPage = 10;
         this.searchText = '';
-        this.filterBy = 'heating_up';
+        this.filterBy = 'all';
         this.sortColumn = "name";
         this.sortDirection = "asc";
         this.onSearchTextChanged.subscribe(searchText => {

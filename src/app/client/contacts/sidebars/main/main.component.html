@@ -55,6 +55,11 @@
                         <div class="title">Neutral </div>
                     </a>
                 </div> -->
+                <div class="nav-item" aria-label="starred" (click)="changeFilter('daily_follow_ups')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='daily_follow_ups'}">
+                        <div class="title">Daily Follow Up's </div>
+                    </a>
+                </div>
 
                 
             </div>
