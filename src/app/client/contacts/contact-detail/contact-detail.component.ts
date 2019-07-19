@@ -132,6 +132,13 @@ export class ContactDetailComponent implements OnInit, OnDestroy
             });
             return;
         }
+        if(!this.contact.phone){
+            this._matSnackBar.open("We were unable to find a mobile number. You will not be charged a credit!", 'OK', {
+                verticalPosition: 'top',
+                duration        : 3500
+            });
+            return;
+        }
         this.confirmDialogRef = this.dialog.open(FuseConfirmDialogComponent, {
             disableClose: false
         });
