@@ -4,6 +4,7 @@ import { Platform } from '@angular/cdk/platform';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import * as _ from 'lodash';
+import {ApiAuthService} from 'app/services/auth.service';
 
 // Create the injection token for the custom settings
 export const FUSE_CONFIG = new InjectionToken('fuseCustomConfig');
@@ -16,7 +17,7 @@ export class FuseConfigService
     // Private
     private _configSubject: BehaviorSubject<any>;
     private readonly _defaultConfig: any;
-
+    websiteSettings:any={}
     /**
      * Constructor
      *
@@ -27,11 +28,13 @@ export class FuseConfigService
     constructor(
         private _platform: Platform,
         private _router: Router,
-        @Inject(FUSE_CONFIG) private _config
+        @Inject(FUSE_CONFIG) private _config,
+        public auth: ApiAuthService,
     )
     {
+        this.websiteSettings=auth.getWebsiteSettings();
         // Set the default config from the user provided config (from forRoot)
-        this._defaultConfig = _config;
+        this._defaultConfig = this.websiteSettings.config;
 
         // Initialize the service
         this._init();

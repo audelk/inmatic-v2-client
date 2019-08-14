@@ -4,7 +4,7 @@ import { Platform } from '@angular/cdk/platform';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
+import { Title } from '@angular/platform-browser';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
@@ -14,6 +14,7 @@ import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.
 import { navigation } from 'app/navigation/navigation';
 import { locale as navigationEnglish } from 'app/navigation/i18n/en';
 import { locale as navigationTurkish } from 'app/navigation/i18n/tr';
+import {ApiAuthService} from 'app/services/auth.service';
 
 @Component({
     selector   : 'app',
@@ -40,6 +41,7 @@ export class AppComponent implements OnInit, OnDestroy
      * @param {Platform} _platform
      * @param {TranslateService} _translateService
      */
+    websiteSettings:any={}
     constructor(
         @Inject(DOCUMENT) private document: any,
         private _fuseConfigService: FuseConfigService,
@@ -48,7 +50,9 @@ export class AppComponent implements OnInit, OnDestroy
         private _fuseSplashScreenService: FuseSplashScreenService,
         private _fuseTranslationLoaderService: FuseTranslationLoaderService,
         private _translateService: TranslateService,
-        private _platform: Platform
+        private _platform: Platform,
+        public title: Title, 
+        public auth: ApiAuthService,
     )
     {
         // Get default navigation
@@ -113,6 +117,9 @@ export class AppComponent implements OnInit, OnDestroy
 
         // Set the private defaults
         this._unsubscribeAll = new Subject();
+        this.websiteSettings=auth.getWebsiteSettings();
+        this.title.setTitle(this.websiteSettings.title);
+        this.changeFavicon(this.websiteSettings.favicon)
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -130,7 +137,7 @@ export class AppComponent implements OnInit, OnDestroy
             .subscribe((config) => {
 
                 this.fuseConfig = config;
-
+                
                 // Boxed
                 if ( this.fuseConfig.layout.width === 'boxed' )
                 {
@@ -156,6 +163,18 @@ export class AppComponent implements OnInit, OnDestroy
             });
     }
 
+    
+   changeFavicon(src) {
+    var link = document.createElement('link'),
+        oldLink = document.getElementById('favicon');
+    link.id = 'favicon';
+    link.rel = 'shortcut icon';
+    link.href = src;
+    if (oldLink) {
+     document.head.removeChild(oldLink);
+    }
+    document.head.appendChild(link);
+   }
     /**
      * On destroy
      */

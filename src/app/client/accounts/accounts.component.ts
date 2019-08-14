@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { fuseAnimations } from '@fuse/animations';
-
+import {ApiAuthService} from 'app/services/auth.service';
 @Component({
     selector     : 'app-accounts',
     templateUrl  : './accounts.component.html',
@@ -15,17 +15,18 @@ import { fuseAnimations } from '@fuse/animations';
 export class AccountsComponent implements OnInit, OnDestroy
 {
     accounts: any[];
-
+    websiteSettings:any={}
     // Private
     private _unsubscribeAll: Subject<any>;
 
    
     constructor(
-        private  _router: Router,        
+        private  _router: Router,    public auth: ApiAuthService,    
     )
     {
         // Set the private defaults
         // this._unsubscribeAll = new Subject();
+        this.websiteSettings=auth.getWebsiteSettings();
     }
 
     // -----------------------------------------------------------------------------------------------------

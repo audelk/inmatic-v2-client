@@ -24,7 +24,7 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
     navigation: any;
     user: User;
     logoUrl = '';
-
+    websiteSettings:any={}
     // Private
     private _fusePerfectScrollbar: FusePerfectScrollbarDirective;
     private _unsubscribeAll: Subject<any>;
@@ -53,7 +53,7 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
         if(!this.user){
             this.user = new User();
         }
-        this.logoUrl = this._apiAuthService.getLogoUrl();
+        this.websiteSettings = this._apiAuthService.getWebsiteSettings();
     }
 
     // -----------------------------------------------------------------------------------------------------

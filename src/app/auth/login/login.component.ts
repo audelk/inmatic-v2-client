@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     errorMsg = null;
     logoUrl = "";
-
+    websiteSettings:any={};
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _fuseNavigationService: FuseNavigationService,
@@ -49,7 +49,8 @@ export class LoginComponent implements OnInit {
                 }
             }
         };
-        this.logoUrl = auth.getLogoUrl();
+       // this.logoUrl = auth.getLogoUrl();
+       this.websiteSettings=auth.getWebsiteSettings();
     }
 
     ngOnInit(): void {

@@ -2,7 +2,7 @@
 
     <div class="card">
 
-      
+
 
         <!-- SIDEBAR CONTENT -->
         <div class="content py-16" fusePerfectScrollbar>
@@ -10,58 +10,25 @@
             <div class="nav material2">
 
                 <div class="nav-item" aria-label="inbox">
-                    <a class="nav-link" matRipple (click)="changeFilter('all')"
-                       [ngClass]="{'active accent':filterBy ==='all'}">
+                    <a class="nav-link" matRipple (click)="changeFilter('all')" [ngClass]="{'active accent':filterBy ==='all'}">
                         <span class="title">All Replies</span>
                     </a>
                 </div>
-               
-                <!-- <div class="nav-item" aria-label="frequently contacted" (click)="changeFilter('spark')">
-                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='spark'}">
-                        <div class="title">Spark</div>
-                    </a>
-                </div> -->
 
-                <div class="nav-item" aria-label="frequently contacted" (click)="changeFilter('heating_up')">
-                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='heating_up'}">
-                        <div class="title">Heating Up</div>
+
+                <div class="nav-item" aria-label="Read" (click)="changeFilter('read')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='read'}">
+                        <div class="title">Read</div>
                     </a>
                 </div>
-
-                <div class="nav-item" aria-label="starred" (click)="changeFilter('burning_hot')">
-                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='burning_hot'}">
-                        <div class="title">Burning Hot </div>
-                    </a>
-                </div>
-                <div class="nav-item" aria-label="frequently contacted" (click)="changeFilter('not_interested')">
-                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='not_interested'}">
-                        <div class="title">Not Interested</div>
+                <div class="nav-item" aria-label="Unread" (click)="changeFilter('unread')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='unread'}">
+                        <div class="title">Unread</div>
                     </a>
                 </div>
 
-                <!-- <div class="nav-item" aria-label="inbox">
-                    <a class="nav-link" matRipple (click)="changeFilter('drip')"
-                        [ngClass]="{'active accent':filterBy ==='drip'}">
-                        <span class="title">Drip</span>
-                    </a>
-                </div> -->
-                <div class="nav-item" aria-label="starred" (click)="changeFilter('converted')">
-                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='converted'}">
-                        <div class="title">Converted </div>
-                    </a>
-                </div>
-                <!-- <div class="nav-item" aria-label="starred" (click)="changeFilter('neutral')">
-                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='neutral'}">
-                        <div class="title">Neutral </div>
-                    </a>
-                </div> -->
-                <div class="nav-item" aria-label="starred" (click)="changeFilter('daily_follow_ups')">
-                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='daily_follow_ups'}">
-                        <div class="title">Daily Follow Up's </div>
-                    </a>
-                </div>
 
-                
+
             </div>
 
         </div>

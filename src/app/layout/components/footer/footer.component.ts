@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import {ApiAuthService} from 'app/services/auth.service';
 @Component({
     selector   : 'footer',
     templateUrl: './footer.component.html',
@@ -10,7 +10,11 @@ export class FooterComponent
     /**
      * Constructor
      */
-    constructor()
+    websiteSettings:any={}
+    constructor(
+        public auth: ApiAuthService,
+    )
     {
+        this.websiteSettings=auth.getWebsiteSettings();
     }
 }

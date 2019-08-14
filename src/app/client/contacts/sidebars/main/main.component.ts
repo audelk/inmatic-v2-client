@@ -39,13 +39,9 @@ export class ContactsMainSidebarComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        this.filterBy = this._contactsService.filterBy || 'heating_up';
+        this.filterBy = this._contactsService.filterBy || 'all';
 
-        this._contactsService.onUserDataChanged
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(user => {
-                this.user = user;
-            });
+       
     }
 
     /**
