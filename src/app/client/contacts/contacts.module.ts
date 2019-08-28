@@ -8,7 +8,7 @@ import {
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseConfirmDialogModule, FuseSidebarModule } from '@fuse/components';
 import { FormsModule } from '@angular/forms';
-
+import { AccountSidebarComponent } from './account-sidebar/account-sidebar.component';
 import { ContactsComponent } from 'app/client/contacts/contacts.component';
 import { ContactsService } from 'app/client/contacts/contacts.service';
 import { ContactsContactListComponent } from 'app/client/contacts/contact-list/contact-list.component';
@@ -24,14 +24,18 @@ import { ChatUserSidenavComponent } from 'app/client/contacts/contact-detail/cha
 import { ChatLeftSidenavComponent } from 'app/client/contacts/contact-detail/chat/sidenavs/left/left.component';
 import { ChatRightSidenavComponent } from 'app/client/contacts/contact-detail/chat/sidenavs/right/right.component';
 import { ChatContactSidenavComponent } from 'app/client/contacts/contact-detail/chat/sidenavs/right/contact/contact.component';
+import {AccountInboxComponent} from 'app/client/contacts/account-inbox/account-inbox.component';
+
+import {AccountInboxService} from 'app/client/contacts/account-inbox/account-inbox.service';
 import { ApiTokenService } from 'app/services/token.service';
+import { AccountInboxListComponent } from './account-inbox/account-inbox-list/account-inbox-list.component';
+import { AccountChatPanelModule } from './account-inbox/account-chat-panel/account-chat-panel.module';
+import { DatePipe } from '@angular/common';
 const routes: Routes = [
     {
         path     : '',
-        component: ContactsComponent,
-        resolve  : {
-            contacts: ContactsService
-        }
+        component: AccountInboxComponent,
+        
     },
     {
         path: ':ID2/detail',
@@ -45,6 +49,7 @@ const routes: Routes = [
 
 @NgModule({
     declarations   : [
+        AccountSidebarComponent,
         ContactsComponent,
         ContactsContactListComponent,        
         ContactsMainSidebarComponent,
@@ -57,7 +62,9 @@ const routes: Routes = [
         ChatLeftSidenavComponent,
         ChatRightSidenavComponent,
         ChatContactSidenavComponent,
-        ContactDialogComponent
+        ContactDialogComponent,
+        AccountInboxComponent,
+        AccountInboxListComponent
     ],
     imports        : [
         RouterModule.forChild(routes),
@@ -84,12 +91,15 @@ const routes: Routes = [
 
         FuseSharedModule,
         FuseConfirmDialogModule,
-        FuseSidebarModule
+        FuseSidebarModule,
+        
+        AccountChatPanelModule,
     ],
     providers      : [
         ContactsService,
         ChatService,
-        ApiTokenService
+        ApiTokenService,
+        AccountInboxService,DatePipe
     ],
     entryComponents: [ 
         ContactDialogComponent       

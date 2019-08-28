@@ -20,7 +20,7 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeDbService } from 'app/fake-db/fake-db.service';
 import { AuthGuard } from 'app/guard/auth.guard';
-import { InboxDetailComponent } from './inbox/inbox-detail/inbox-detail.component'; 
+
 const appRoutes: Routes = [
     {
         path: 'auth',
@@ -40,7 +40,7 @@ const appRoutes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
-        InboxDetailComponent
+        
     ],
     imports     : [
         BrowserModule,

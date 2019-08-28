@@ -1,67 +1,56 @@
 <div id="forms" class="page-layout simple fullwidth" fxLayout="column">
-      
-        <!-- CONTENT -->
-        <div class="content p-24">
-            <div class="h1 mt-40 mb-60" style="text-align: center;">
-               Analytics for {{ campaignData.name }}
-            </div>        
-            <div class="mb-24 mt-20 ml-20" fxLayout="column" fxLayout.gt-md="row">
-                <div fxLayout="row" fxFlex = "28" fxFlex="1 0 auto">
-                    <div appearance="outline"  class="fuse-card pr-4" style="display: flex; flex-direction: column; justify-content: space-around;">
-                        <div>
-                            <div class="p-16">
-                                <div class="h1">{{ campaignData.name }}</div>                            
-                            </div>
-    
-                            <div class="p-16 pt-0" fxLayout="row" fxLayoutAlign="space-between center">
-                                <div fxLayout="row" fxLayoutAlign="start start">
-                                    <span class="font-weight-300 font-size-72 line-height-72">{{ campaignData.total_connections}}</span>
-                                    <span class="font-weight-30 font-size-12 line-height-48 ml-8 mt-28">connections</span>                               
-                                </div>
-                            
-                            </div>
+
+    <!-- CONTENT -->
+    <div class="content p-24">
+        <div class="h1 mt-40 mb-60" style="text-align: center;">
+            Analytics for {{ campaignData.name }}
+        </div>
+        <div class="mb-24 mt-20 ml-20" fxLayout="column" fxLayout.gt-md="row">
+            <div fxLayout="row" fxFlex="28" fxFlex="1 0 auto" class="m-20">
+                <div appearance="outline" class="fuse-card pr-4" style="display: flex; flex-direction: column; justify-content: space-around;">
+                    <div>
+                        <div class="p-16">
+                            <div class="h1">{{ campaignData.name }}</div>
                         </div>
 
-                        <div class="card-divider"></div>
-
-                        <div>
-                            <div class="p-16 pt-4">
-                                <div class="mb-12" fxLayout="row" fxLayoutAlign="space-between center">
-                                    <div>Invite Sent</div>
-                                    <div fxLayout="row" fxLayoutAlign="start center">                                   
-                                        <div class="secondary-text">{{ campaignData.total_invite_sents }}</div>                                    
-                                    </div>
-                                </div>
-                                <div class="mb-12" fxLayout="row" fxLayoutAlign="space-between center">
-                                    <div>Burning Hot</div>
-                                    <div fxLayout="row" fxLayoutAlign="start center">                                   
-                                        <div class="secondary-text">{{ campaignData.total_burning_hots }}</div>                                    
-                                    </div>
-                                </div>
-                                <div class="mb-12" fxLayout="row" fxLayoutAlign="space-between center">
-                                    <div>Heating Up</div>
-                                    <div fxLayout="row" fxLayoutAlign="start center">                                   
-                                        <div class="secondary-text">{{ campaignData.total_heating_ups }}</div>                                    
-                                    </div>
-                                </div>
-                                <div class="mb-12" fxLayout="row" fxLayoutAlign="space-between center">
-                                    <div>Converted</div>
-                                    <div fxLayout="row" fxLayoutAlign="start center">                                   
-                                        <div class="secondary-text"> {{ campaignData.total_converteds }}</div>                                    
-                                    </div>
-                                </div>                                
-                            
+                        <div class="p-16 pt-0" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div fxLayout="row" fxLayoutAlign="start start">
+                                <span class="font-weight-300 font-size-72 line-height-72">{{ campaignData.total_connections}}</span>
+                                <span class="font-weight-30 font-size-12 line-height-48 ml-8 mt-28">connections</span>
                             </div>
+
                         </div>
                     </div>
-                    <div appearance="outline" class="pr-4 pl-60" fxFlex = "72">
-                        <div [chart]="stockChart" class = "statistics-chart"></div>
-                    </div>                           
-                </div>              
-            </div>       
+
+                    <div class="card-divider"></div>
+
+                    <div>
+                        <div class="p-16 pt-4">
+                            <div class="mb-12" fxLayout="row" fxLayoutAlign="space-between center">
+                                <div>Invite Sent</div>
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <div class="secondary-text">{{ campaignData.total_invite_sents }}</div>
+                                </div>
+                            </div>
+                            <div class="mb-12" fxLayout="row" fxLayoutAlign="space-between center">
+                                <div>Replies</div>
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <div class="secondary-text">{{ campaignData.total_replies }}</div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div fxLayout="row" fxFlex="72" class="m-20">
+                <div appearance="outline" fxFlex="100">
+                    <div [chart]="stockChart" class="statistics-chart"></div>
+                </div>
+            </div>
         </div>
-        <!-- / CONTENT -->
     </div>
-    
-    
-    
+    <!-- / CONTENT -->
+</div>

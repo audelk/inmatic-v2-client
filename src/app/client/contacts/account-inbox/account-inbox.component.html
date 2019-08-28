@@ -1,0 +1,46 @@
+<div id="account-inbox" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
+    <!-- CONTENT -->
+    <div class="content">
+
+        <!-- CENTER -->
+        <div class="center p-24 pb-56 pr-sm-92" fusePerfectScrollbar>
+            <!-- CONTENT -->
+            <div class="">
+                <div fxLayout="row" fxLayoutAlign="center start">
+                    <div fxFlex="100" class="" fxFlex.gt-sm="100" fxLayout="column">
+                        <div class="mb-20">
+                            <div class="search mat-card" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                                <mat-icon>search</mat-icon>
+                                <input [formControl]="searchInput" placeholder="Search for inbox">
+                            </div>
+                            <div class="search mat-card ml-20" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                                <mat-select [formControl]="filter" placeholder="Search for status">
+                                    <mat-option *ngFor="let item of filters" [value]="item.value">{{ item.text }}</mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="mb-20">
+                            <div class="mat-card">
+                                <account-inbox-list></account-inbox-list>
+                                <mat-paginator #paginator [length]="totalCount" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="[5,10,20]" [showFirstLastButtons]="true" (page)="onSetPage($event)">
+                                </mat-paginator>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CENTER -->
+        <ng-container>
+
+            <!-- CHAT PANEL -->
+            <fuse-sidebar name="chatPanel" position="right" class="chat-panel right-chat-panel" [folded]="true" [foldedWidth]="70" [foldedAutoTriggerOnHover]="false" lockedOpen="gt-md">
+                <account-chat-panel></account-chat-panel>
+            </fuse-sidebar>
+            <!-- / CHAT PANEL -->
+
+        </ng-container>
+    </div>
+    <!-- / CONTENT-->
+</div>

@@ -1,0 +1,18 @@
+<div class="sidebar-content">
+    <div class="card mat-card">       
+        <!-- SIDEBAR CONTENT -->
+        <div class="content py-16" fusePerfectScrollbar>
+            <div class="nav material2">
+                <div class="nav-item" *ngFor = "let navigation of navigations">
+                    <a class="nav-link" matRipple [routerLink] = "navigation.url" [routerLinkActive] = "['active','accent']">
+                        <mat-icon class = "nav-link-icon">{{ navigation.icon }}</mat-icon>
+                        <span class="title">{{ navigation.title}}</span>
+                    </a>
+                </div>                   
+            </div>
+        </div>
+        <!-- / SIDEBAR CONTENT -->
+    </div>
+</div>
+
+    

@@ -2,11 +2,18 @@ import { FuseNavigation } from '@fuse/types';
 
 export const navigation: FuseNavigation[] = [  
     {
-        id       : 'dashboard',
-        title    : 'Contacts    ',               
+        id       : 'analytics',
+        title    : 'Analytics',
         type     : 'item',
-        icon     : 'perm_contact_calendar',
-        url      : '/client/contacts',
+        icon     : 'graphic_eq',
+        url      : '/client/analytics'       
+    },
+    {
+        id       : 'inbox',
+        title    : 'Inbox    ',               
+        type     : 'item',
+        icon     : 'inbox',
+        url      : '/client/inbox',
     },
     {
         id       : 'downloads',
@@ -15,14 +22,7 @@ export const navigation: FuseNavigation[] = [
         icon     : 'arrow_downward',
         url: '/client/downloads'        
     },
-
-    {
-        id       : 'analytics',
-        title    : 'Analytics',
-        type     : 'item',
-        icon     : 'graphic_eq',
-        url      : '/client/analytics'       
-    },
+    
     {
         id       : 'training',
         title    : 'Training',

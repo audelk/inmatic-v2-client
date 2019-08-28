@@ -1,0 +1,102 @@
+<mat-table #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}" matSort (matSortChange)="customSort($event)">
+
+    <!---
+    <ng-container matColumnDef="checkbox">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let result">
+            <mat-checkbox [(ngModel)]="checkboxes[result.ID2]" (ngModelChange)="onSelectedChange(result.ID2,result.ID1,$event)" (click)="$event.stopPropagation()">
+            </mat-checkbox>
+        </mat-cell>
+    </ng-container>
+    -->
+    <!-- Avatar Column -->
+
+    <ng-container matColumnDef="picture">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let result">
+            <img class="avatar" [alt]="result.formattedName" [src]="result.picture || 'assets/images/avatars/user.jpg'" />
+        </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="formattedName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+        <mat-cell *matCellDef="let result">
+            <p class="text-truncate font-weight-600  inbox-{{result.istatus}} ">{{result.formattedName }}</p>
+        </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
+        <mat-cell *matCellDef="let result">
+            <p class="text-truncate inbox-{{result.istatus}}">
+                {{result.title}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="company">
+
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
+        <mat-cell *matCellDef="let result">
+            <p class="text-truncate inbox-{{result.istatus}}">
+                {{result.company}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="location">
+
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
+        <mat-cell *matCellDef="let result">
+            <p class="job-title text-truncate inbox-{{result.istatus}}">
+                {{result.location}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="latest_activity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
+        <mat-cell *matCellDef="let result">
+            <p class="text-truncate inbox-{{result.istatus}}">
+                {{ result.latest_activity | date:'short' }}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let result">
+            <p class="text-truncate {{ result.status }} inbox-{{result.istatus}}">
+                {{ result.status }}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="star">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Star</mat-header-cell>
+        <mat-cell *matCellDef="let result">
+            <div class="full-width">
+                <button matTooltip="Star" matTooltipPosition="before" class="mat-flat-button" [matMenuTriggerFor]="userMenu" (click)="$event.stopPropagation()">
+<span *ngIf="result.star==0 || result.star==undefined"><mat-icon class="">star_border</mat-icon></span>
+<span *ngIf="result.star==1"><mat-icon class="blue-500-fg">star</mat-icon></span>
+<span *ngIf="result.star==2"><mat-icon class="blue-500-fg">star</mat-icon><mat-icon class="blue-500-fg">star</mat-icon></span>
+<span *ngIf="result.star==3"><mat-icon class="blue-500-fg">star</mat-icon><mat-icon class="blue-500-fg">star</mat-icon><mat-icon class="blue-500-fg">star</mat-icon></span>
+</button> </div>
+            <mat-menu #userMenu="matMenu">
+                <button matTooltip="" mat-menu-item (click)="updateStar(result,0)"><mat-icon >star_border</mat-icon></button>
+                <button matTooltip="" mat-menu-item (click)="updateStar(result,1)"><mat-icon class="blue-500-fg">star</mat-icon></button>
+                <button matTooltip="" mat-menu-item (click)="updateStar(result,2)"><mat-icon class="blue-500-fg">star</mat-icon><mat-icon class="blue-500-fg">star</mat-icon></button>
+                <button matTooltip="" mat-menu-item (click)="updateStar(result,3)"><mat-icon class="blue-500-fg">star</mat-icon><mat-icon class="blue-500-fg">star</mat-icon><mat-icon class="blue-500-fg">star</mat-icon></button>
+                <button matTooltip="" mat-menu-item (click)="updateStar(result,-1)">Cancel</button>
+            </mat-menu>
+        </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row (click)="contactClick(result)" *matRowDef="let result; columns: displayedColumns;" class="result" [ngClass]="{'accent-50':checkboxes[result.id]}" matRipple [@animate]="{value:'*',params:{y:'100%'}}">
+    </mat-row>
+</mat-table>

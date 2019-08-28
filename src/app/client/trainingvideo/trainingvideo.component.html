@@ -1,0 +1,30 @@
+<div id="boards" class="fuse-navy" fxLayout="column" fxLayoutAlign="start center" fxFlex fusePerfectScrollbar>
+
+    <div class="header pt-44 pt-md-88" fxLayout="row" fxLayoutAlign="center center" fxFlex="0 0 auto" [@animate]="{value:'*',params:{delay:'100ms'}}">
+        <h1>Training Videos</h1>
+    </div>
+
+
+
+    <div fxLayout="row wrap" fxLayoutWrap="wrap" class="mt-1">
+
+
+        <div fxLayout="column" *ngFor="let item of videos">
+            <mat-card class="example-card m-20">
+                <mat-card-header>
+                    <mat-card-title>{{item.title}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <iframe style="border-width:0px" [src]="item.url | safe" width="item.width" height="item.height"></iframe>
+
+                </mat-card-content>
+
+            </mat-card>
+
+
+        </div>
+
+
+
+    </div>
+</div>
