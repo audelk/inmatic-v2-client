@@ -156,6 +156,9 @@ account-chat-panel {
         z-index: 7;
         flex: 1 1 100%;
         box-shadow: -1px 0 2px 0 rgba(0, 0, 0, 0.25);
+        width: 80%;
+        min-width: 80%;
+        max-width: 80%;
 
         .messages {
             position: relative;
@@ -188,6 +191,7 @@ account-chat-panel {
                     .message {
                         white-space: pre-wrap;
                         line-height: 1.2;
+                        width: 100%;
                     }
 
                     .time {
