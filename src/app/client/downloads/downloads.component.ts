@@ -60,31 +60,29 @@ export class DownloadsComponent implements OnInit, OnDestroy
 
     download(connector_campaign_id){
         this.isLoading = true;
-        let that=this;
         this._downloadsService.getContactsJSON(connector_campaign_id).then((res:any) => {
-            that.isLoading = false;
+            this.isLoading = false;
             var json = [];
             for(var i in res){
                 var one = res[i];
                 json.push({
                     email: one.email,
-                    phone:one.phone,
                     firstName: one.firstName,
                     lastName:one.lastName,
                     title:one.title,
                     location:one.location,
-                    date: that._datePipe.transform(new Date(one.cdate*1), 'yyyy-MM-dd')
+                    date: this._datePipe.transform(new Date(one.cdate), 'yyyy-MM-dd')
                 });
             }
-            that.downloadAsFile(json);
+            this.downloadAsFile(json);
         }).catch(err => {
-            that.isLoading = false;
+            this.isLoading = false;
         });        
     }
     downloadAsFile(json){       
         var options = {            
            
-            headers: ['Email',"Phone",'First Name', 'Last Name', 'Title', 'Location','Date Connected']
+            headers: ['Email', 'First Name', 'Last Name', 'Title', 'Location','Date Connected']
           };
           new ngxCsv(json, 'contacts',options);
     }

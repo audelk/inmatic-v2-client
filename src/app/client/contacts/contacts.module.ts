@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
     MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule, MatRippleModule, MatTableModule, MatToolbarModule
-    ,MatSelectModule,MatListModule,MatSliderModule, MatCardModule, MatRadioModule, MatSidenavModule, MatSortModule,MatPaginatorModule
+    , MatSelectModule, MatListModule, MatSliderModule, MatCardModule, MatRadioModule, MatSidenavModule, MatSortModule, MatPaginatorModule
 } from '@angular/material';
 
 import { FuseSharedModule } from '@fuse/shared.module';
@@ -13,8 +13,6 @@ import { ContactsComponent } from 'app/client/contacts/contacts.component';
 import { ContactsService } from 'app/client/contacts/contacts.service';
 import { ContactsContactListComponent } from 'app/client/contacts/contact-list/contact-list.component';
 import { ContactsMainSidebarComponent } from 'app/client/contacts/sidebars/main/main.component';
-import { ContactDetailComponent } from 'app/client/contacts/contact-detail/contact-detail.component';
-import { ContactDialogComponent } from 'app/client/contacts/contact-detail/email-dialog/contact-dialog.component';
 import { ChatService } from 'app/client/contacts/contact-detail/chat/chat.service';
 import { ChatComponent } from 'app/client/contacts/contact-detail/chat/chat.component';
 import { ChatStartComponent } from 'app/client/contacts/contact-detail/chat/chat-start/chat-start.component';
@@ -24,36 +22,28 @@ import { ChatUserSidenavComponent } from 'app/client/contacts/contact-detail/cha
 import { ChatLeftSidenavComponent } from 'app/client/contacts/contact-detail/chat/sidenavs/left/left.component';
 import { ChatRightSidenavComponent } from 'app/client/contacts/contact-detail/chat/sidenavs/right/right.component';
 import { ChatContactSidenavComponent } from 'app/client/contacts/contact-detail/chat/sidenavs/right/contact/contact.component';
-import {AccountInboxComponent} from 'app/client/contacts/account-inbox/account-inbox.component';
+import { AccountInboxComponent } from 'app/client/contacts/account-inbox/account-inbox.component';
 
-import {AccountInboxService} from 'app/client/contacts/account-inbox/account-inbox.service';
+import { AccountInboxService } from 'app/client/contacts/account-inbox/account-inbox.service';
 import { ApiTokenService } from 'app/services/token.service';
 import { AccountInboxListComponent } from './account-inbox/account-inbox-list/account-inbox-list.component';
 import { AccountChatPanelModule } from './account-inbox/account-chat-panel/account-chat-panel.module';
 import { DatePipe } from '@angular/common';
 const routes: Routes = [
     {
-        path     : '',
+        path: '',
         component: AccountInboxComponent,
-        
+
     },
-    {
-        path: ':ID2/detail',
-        component: ContactDetailComponent,
-        children: [],
-        resolve: {
-            chat: ChatService
-        }
-    }
+
 ];
 
 @NgModule({
-    declarations   : [
+    declarations: [
         AccountSidebarComponent,
         ContactsComponent,
-        ContactsContactListComponent,        
+        ContactsContactListComponent,
         ContactsMainSidebarComponent,
-        ContactDetailComponent,
         ChatComponent,
         ChatStartComponent,
         ChatViewComponent,
@@ -62,11 +52,11 @@ const routes: Routes = [
         ChatLeftSidenavComponent,
         ChatRightSidenavComponent,
         ChatContactSidenavComponent,
-        ContactDialogComponent,
+
         AccountInboxComponent,
         AccountInboxListComponent
     ],
-    imports        : [
+    imports: [
         RouterModule.forChild(routes),
 
         MatButtonModule,
@@ -82,8 +72,8 @@ const routes: Routes = [
         MatSelectModule,
         MatListModule,
         MatSliderModule,
-        MatCardModule, 
-        MatRadioModule, 
+        MatCardModule,
+        MatRadioModule,
         MatSidenavModule,
         MatSortModule,
         FormsModule,
@@ -92,19 +82,18 @@ const routes: Routes = [
         FuseSharedModule,
         FuseConfirmDialogModule,
         FuseSidebarModule,
-        
+
         AccountChatPanelModule,
     ],
-    providers      : [
+    providers: [
         ContactsService,
         ChatService,
         ApiTokenService,
-        AccountInboxService,DatePipe
+        AccountInboxService, DatePipe
     ],
-    entryComponents: [ 
-        ContactDialogComponent       
+    entryComponents: [
+
     ]
 })
-export class ContactsModule
-{
+export class ContactsModule {
 }
