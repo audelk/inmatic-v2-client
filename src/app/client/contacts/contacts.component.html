@@ -1,17 +1,20 @@
 <div id="contacts" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
 
     <!-- HEADER -->
-    <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+    <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start"
+         fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
 
         <!-- APP TITLE -->
         <div fxLayout="row" fxLayoutAlign="start center">
 
-            <button mat-icon-button class="sidebar-toggle mr-12" fxHide.gt-sm (click)="toggleSidebar('contacts-main-sidebar')">
+            <button mat-icon-button class="sidebar-toggle mr-12" fxHide.gt-sm
+                    (click)="toggleSidebar('contacts-main-sidebar')">
                 <mat-icon>menu</mat-icon>
             </button>
 
             <div class="logo" fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon class="logo-icon mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">account_box
+                <mat-icon class="logo-icon mr-16"
+                          [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">account_box
                 </mat-icon>
                 <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
                     Contacts
@@ -29,15 +32,15 @@
                 <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
                     <mat-icon>search</mat-icon>
                     <input [formControl]="searchInput" placeholder="Search for a contact">
-                </div>
+                </div>             
 
             </div>
 
         </div>
-        <!-- / SEARCH -->
+        <!-- / SEARCH -->       
     </div>
     <!-- / HEADER -->
-
+   
 
     <!-- CONTENT -->
     <div class="content">
@@ -59,9 +62,14 @@
 
             <!-- CONTENT -->
             <div class="content" fxLayout="column">
-                <contacts-contact-list>
+                <contacts-contact-list >
                 </contacts-contact-list>
-                <mat-paginator #paginator [length]="totalCount" [pageSize]="10" [pageIndex]="pageIndex" [pageSizeOptions]="[5,10,20]" [showFirstLastButtons]="true" (page)="onSetPage($event)">
+                <mat-paginator #paginator [length]="totalCount"
+                               [pageSize]="10"
+                               [pageIndex] = "pageIndex"
+                               [pageSizeOptions]="[5,10,20]"
+                               [showFirstLastButtons]="true"
+                               (page)="onSetPage($event)">
                 </mat-paginator>
 
             </div>
@@ -74,3 +82,5 @@
     <!-- / CONTENT-->
 
 </div>
+
+

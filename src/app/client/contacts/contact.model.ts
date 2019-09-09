@@ -22,6 +22,11 @@ export class Contact
     reminder:string;
     label:string;
     cdate:string;
+    istatus:string;
+    latest_activity:string;
+    iid:number;
+    star:number;
+
 
     /**
      * Constructor
@@ -50,6 +55,10 @@ export class Contact
             this.label =contact.label || '';
             this.ID1 = contact.ID1 || '';
             this.cdate = contact.cdate || '';
+            this.istatus= contact.istatus || 'unread';
+            this.iid= contact.iid || 0;
+            this.star= contact.star || 0;
+            this.latest_activity= contact.latest_activity || 0;
         }
     }
 }

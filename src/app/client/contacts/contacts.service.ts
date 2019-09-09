@@ -13,7 +13,7 @@ import * as Constants from 'app/app.const';
 import {ApiAuthService} from 'app/services/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { InConnection } from './inconnection.model';
-
+import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 @Injectable()
 export class ContactsService implements Resolve<any>
 {
@@ -35,7 +35,7 @@ export class ContactsService implements Resolve<any>
     numPerPage:any;
     sortColumn:any;
     sortDirection:any;
-
+    onApiCall:Subject<any>;
     httpOptions = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json'
@@ -53,7 +53,8 @@ export class ContactsService implements Resolve<any>
         private _httpClient: HttpClient,        
         private _token: ApiTokenService,
         private _auth: ApiAuthService,
-        private _matSnackBar: MatSnackBar
+        private _matSnackBar: MatSnackBar,
+        private _fuseSplashScreenService: FuseSplashScreenService,
     )
     {
         // Set the defaults
@@ -98,6 +99,14 @@ export class ContactsService implements Resolve<any>
             this.sortColumn = sortHeader['active'];
             this.sortDirection = sortHeader['direction'];
             this.getContacts();
+        });
+        this.onApiCall = new Subject();
+        this.onApiCall.subscribe(res=>{
+          
+            if(res=="calling")
+             this._fuseSplashScreenService.show()
+             else
+             this._fuseSplashScreenService.hide()
         });
     }
 
@@ -147,13 +156,16 @@ export class ContactsService implements Resolve<any>
     {
         let params = new HttpParams();
         params = params.set('ID2', id);  
+        this.onApiCall.next("calling");   
         return new Promise((resolve, reject) => {
             this._httpClient.get(Constants.API_URL + '/api/getContactById', {params:params, headers: this.jwt()})
                 .subscribe((response: any) => {
+                    this.onApiCall.next("done");   
                     this.onContactChanged.next(response);
                     resolve(response);
                 },
                 error => {
+                    this.onApiCall.next("done");   
                     if (error.status == 301) {
                         this._auth.logout();
                     }
@@ -163,14 +175,17 @@ export class ContactsService implements Resolve<any>
     }
     
     updateInConnectionNotes(inConnection): Promise<any> {
+        this.onApiCall.next("calling");   
         return new Promise((resolve, reject) => {
             this._httpClient
                 .post(Constants.API_URL + '/api/updateInConnectionNotes', inConnection, {headers: this.jwt()})
                 .subscribe(
                     response => {
+                        this.onApiCall.next("done");   
                         resolve(response);
                     },
                     error => {
+                        this.onApiCall.next("done");   
                         if (error.status == 301) {
                             this._auth.logout();
                         }
@@ -183,14 +198,17 @@ export class ContactsService implements Resolve<any>
         });
     }
     updateEnrichedData(inConnection): Promise<any> {
+        this.onApiCall.next("calling");   
         return new Promise((resolve, reject) => {
             this._httpClient
                 .post(Constants.API_URL + '/api/updateEnrichedData', inConnection, {headers: this.jwt()})
                 .subscribe(
                     response => {
+                        this.onApiCall.next("done");   
                         resolve(response);
                     },
                     error => {
+                        this.onApiCall.next("done");   
                         if (error.status == 301) {
                             this._auth.logout();
                         }
@@ -203,14 +221,17 @@ export class ContactsService implements Resolve<any>
         });
     }
     enrichContact(inConnection): Promise<any> {
+        this.onApiCall.next("calling");   
         return new Promise((resolve, reject) => {
             this._httpClient
                 .post(Constants.API_URL + '/api/enrichContact', inConnection, {headers: this.jwt()})
                 .subscribe(
                     response => {
+                        this.onApiCall.next("done");   
                         resolve(response);
                     },
                     error => {
+                        this.onApiCall.next("done");   
                         if (error.status == 301) {
                             this._auth.logout();
                         }
@@ -223,14 +244,17 @@ export class ContactsService implements Resolve<any>
         });
     }
     updateReminder(inConnection): Promise<any>{
+        this.onApiCall.next("calling");   
         return new Promise((resolve, reject) => {
             this._httpClient
                 .post(Constants.API_URL + '/api/updateReminder', inConnection, {headers: this.jwt()})
                 .subscribe(
                     response => {
+                        this.onApiCall.next("done");   
                         resolve(response);
                     },
                     error => {
+                        this.onApiCall.next("done");   
                         if (error.status == 301) {
                             this._auth.logout();
                         }
@@ -243,14 +267,17 @@ export class ContactsService implements Resolve<any>
         });
     }
     updateContactLabel(data): Promise<any>{
+        this.onApiCall.next("calling");   
         return new Promise((resolve, reject) => {
             this._httpClient
                 .post(Constants.API_URL + '/api/updateContactLabel', data, {headers: this.jwt()})
                 .subscribe(
                     response => {
+                        this.onApiCall.next("done");   
                         resolve(response);
                     },
                     error => {
+                        this.onApiCall.next("done");   
                         if (error.status == 301) {
                             this._auth.logout();
                         }
@@ -264,14 +291,17 @@ export class ContactsService implements Resolve<any>
     }
     getTemplateEmail(): Promise<any>
     {
+        this.onApiCall.next("calling");   
         return new Promise((resolve, reject) => {
             this._httpClient
                 .get(Constants.API_URL + '/api/getContactTemplateEmail', {headers: this.jwt()})
                 .subscribe(
                     response => {
+                        this.onApiCall.next("done");   
                         resolve(response);
                     },
                     error => {
+                        this.onApiCall.next("done");   
                         if (error.status == 301) {
                             this._auth.logout();
                         }
@@ -289,11 +319,13 @@ export class ContactsService implements Resolve<any>
         let params = new HttpParams();
         params = params.set('ID2', ID2);
         params = params.set('template_id', selectedTemplateId);
+        this.onApiCall.next("done");   
         return new Promise((resolve, reject) => {
             this._httpClient
                 .get(Constants.API_URL + '/api/sendEmailFromTemplate', {params:params, headers: this.jwt()})
                 .subscribe(
                     response => {
+                        this.onApiCall.next("done");   
                         resolve(response);
                     },
                     error => {
@@ -311,6 +343,7 @@ export class ContactsService implements Resolve<any>
 
     getContacts(): Promise<any>
     {
+        this.onApiCall.next("calling");    
         return new Promise((resolve, reject) => {
                 // this._httpClient.get('api/contacts-contacts')  
                 let params = new HttpParams();
@@ -322,7 +355,7 @@ export class ContactsService implements Resolve<any>
                 params = params.set('sortDirection',this.sortDirection);
                 this._httpClient.get(Constants.API_URL + '/api/getContactsList', { params:params,headers: this.jwt()})
                     .subscribe((response: any) => {
-
+                        this.onApiCall.next("done");    
                         this.contacts = [];
                         for(var i in response['contacts_list']){
                             var one_contact = response['contacts_list'][i];
@@ -338,6 +371,7 @@ export class ContactsService implements Resolve<any>
                         this.onContactsChanged.next(this.contacts);
                         resolve(this.contacts);
                     }, error => {
+                        this.onApiCall.next("done");    
                         if (error.status == 301) {
                             this._auth.logout();
                         }
@@ -353,9 +387,11 @@ export class ContactsService implements Resolve<any>
      */
     getUserData(): Promise<any>
     {
+        this.onApiCall.next("calling");    
         return new Promise((resolve, reject) => {
                 this._httpClient.get('api/contacts-user/5725a6802d10e277a0f35724')
                     .subscribe((response: any) => {
+                        this.onApiCall.next("done");    
                         this.user = response;
                         this.onUserDataChanged.next(this.user);
                         resolve(this.user);
@@ -441,10 +477,12 @@ export class ContactsService implements Resolve<any>
      */
     updateContact(contact): Promise<any>
     {
+        this.onApiCall.next("calling");    
         return new Promise((resolve, reject) => {
 
             this._httpClient.post('api/contacts-contacts/' + contact.id, {...contact})
                 .subscribe(response => {
+                    this.onApiCall.next("done");    
                     this.getContacts();
                     resolve(response);
                 });
@@ -459,9 +497,11 @@ export class ContactsService implements Resolve<any>
      */
     updateUserData(userData): Promise<any>
     {
+        this.onApiCall.next("calling");    
         return new Promise((resolve, reject) => {
             this._httpClient.post('api/contacts-user/' + this.user.id, {...userData})
                 .subscribe(response => {
+                    this.onApiCall.next("done");    
                     this.getUserData();
                     this.getContacts();
                     resolve(response);
@@ -512,12 +552,15 @@ export class ContactsService implements Resolve<any>
         let params = new HttpParams();
         params = params.set('id', id);
         params = params.set('ID1', ID1);  
+        this.onApiCall.next("calling");    
         return new Promise((resolve, reject) => {
             this._httpClient.get(Constants.API_URL + '/api/getContactMessages', {params:params, headers: this.jwt()})
-                .subscribe((response: any) => {                    
+                .subscribe((response: any) => {  
+                    this.onApiCall.next("done");                      
                     resolve(response);
                 },
                 error => {
+                    this.onApiCall.next("done");    
                     if (error.status == 301) {
                         this._auth.logout();
                     }
@@ -526,14 +569,17 @@ export class ContactsService implements Resolve<any>
         );
     }
     sendContactMessage(data): Promise<any>{
+        this.onApiCall.next("calling");    
         return new Promise((resolve, reject) => {
             this._httpClient
                 .post(Constants.API_URL + '/api/sendContactMessage', data, {headers: this.jwt()})
                 .subscribe(
                     response => {
+                        this.onApiCall.next("done");    
                         resolve(response);
                     },
                     error => {
+                        this.onApiCall.next("done");    
                         if (error.status == 301) {
                             this._auth.logout();
                         }
@@ -546,4 +592,46 @@ export class ContactsService implements Resolve<any>
         });
     }
 
+    toCRM(fields): Promise<any> {
+        this.onApiCall.next("calling");        
+        return new Promise((resolve, reject) => {
+
+            this._httpClient
+                .post(Constants.API_URL + '/api/gfile/spreadsheet/addContact', {...fields}, { headers: this.jwt()})
+                .subscribe(
+                    response => { 
+                        this.onApiCall.next("done");                      
+                        resolve(response);
+                    },
+                    error => {
+                        this.onApiCall.next("done");
+                        if (error.status == 301) {
+                            this._auth.logout();
+                        }
+                    }
+                );
+    });
+    }
+
+    update(fields): Promise<any> {
+        this.onApiCall.next("calling");
+        
+        return new Promise((resolve, reject) => {
+
+            this._httpClient
+                .post(Constants.API_URL + '/api/updateInbox', {...fields}, { headers: this.jwt()})
+                .subscribe(
+                    response => { 
+                        this.onApiCall.next("done");                      
+                        resolve(response);
+                    },
+                    error => {
+                        this.onApiCall.next("done");
+                        if (error.status == 301) {
+                            this._auth.logout();
+                        }
+                    }
+                );
+    });
+    }
 }
