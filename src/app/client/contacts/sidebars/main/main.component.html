@@ -1,0 +1,39 @@
+<div class="sidebar-content">
+
+    <div class="card">
+
+
+
+        <!-- SIDEBAR CONTENT -->
+        <div class="content py-16" fusePerfectScrollbar>
+
+            <div class="nav material2">
+
+                <div class="nav-item" aria-label="inbox">
+                    <a class="nav-link" matRipple (click)="changeFilter('all')" [ngClass]="{'active accent':filterBy ==='all'}">
+                        <span class="title">All Replies</span>
+                    </a>
+                </div>
+
+
+                <div class="nav-item" aria-label="Read" (click)="changeFilter('read')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='read'}">
+                        <div class="title">Read</div>
+                    </a>
+                </div>
+                <div class="nav-item" aria-label="Unread" (click)="changeFilter('unread')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='unread'}">
+                        <div class="title">Unread</div>
+                    </a>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- / SIDEBAR CONTENT -->
