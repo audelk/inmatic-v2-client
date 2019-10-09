@@ -4,3 +4,15 @@
         font-weight: 300;
     }
 }
+
+.training-guide{
+    width: 300px;
+
+    .href-link {
+        text-decoration: none !important;
+
+        span{
+            color: rgba(0,0,0,.87) !important;
+        }
+    }
+}
